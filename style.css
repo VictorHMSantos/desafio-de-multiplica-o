@@ -1,1 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
 
+h1 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.conta {
+    font-size: 2.2rem;
+    margin: 20px 0;
+}
+
+.opcoes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.bateria {
+    background: #1e293b;
+    border-radius: 16px;
+    padding: 15px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.bateria:active {
+    transform: scale(0.95);
+}
+
+.corpo {
+    width: 100%;
+    height: 80px;
+    border: 3px solid #fff;
+    border-radius: 10px;
+    position: relative;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.nivel {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #22c55e;
+    transition: height 0.3s;
+}
+
+.numero {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.correto {
+    background: #16a34a !important;
+}
+
+.errado {
+    background: #dc2626 !important;
+}
+
+.mensagem {
+    margin-top: 20px;
+    font-size: 1.4rem;
+    min-height: 32px;
+}
