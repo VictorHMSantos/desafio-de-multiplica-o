@@ -1,4 +1,9 @@
 let respostaCorreta = 0;
+let pontos = 0;
+
+function atualizarPontuacao() {
+    document.getElementById("pontos").textContent = pontos;
+}
 
 function gerarQuestao() {
     document.getElementById("mensagem").textContent = "";
@@ -52,13 +57,19 @@ function gerarQuestao() {
 function verificarResposta(elemento, valor) {
     if (valor === respostaCorreta) {
         elemento.classList.add("correto");
-        document.getElementById("mensagem").textContent = "Muito bem! ✅";
+        pontos += 10;
+        document.getElementById("mensagem").textContent = "Muito bem! +10 ✅";
+        atualizarPontuacao();
+
         setTimeout(gerarQuestao, 1200);
     } else {
         elemento.classList.add("errado");
-        document.getElementById("mensagem").textContent = "Tente novamente ❌";
+        pontos = Math.max(0, pontos - 5);
+        document.getElementById("mensagem").textContent = "Tente novamente −5 ❌";
+        atualizarPontuacao();
     }
 }
 
-// Inicia o jogo
+// Início do jogo
+atualizarPontuacao();
 gerarQuestao();
