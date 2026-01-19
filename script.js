@@ -58,14 +58,14 @@ function verificarResposta(elemento, valor) {
     if (valor === respostaCorreta) {
         elemento.classList.add("correto");
         pontos += 10;
-        document.getElementById("mensagem").textContent = "Muito bem! +10 ✅";
+        document.getElementById("mensagem").textContent = "Muito bem! +10 pontos ✅";
         atualizarPontuacao();
 
         setTimeout(gerarQuestao, 1200);
     } else {
         elemento.classList.add("errado");
         pontos = Math.max(0, pontos - 5);
-        document.getElementById("mensagem").textContent = "Tente novamente −5 ❌";
+        document.getElementById("mensagem").textContent = "Tente novamente −5 pontos ❌";
         atualizarPontuacao();
     }
 }
