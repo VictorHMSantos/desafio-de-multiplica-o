@@ -17,7 +17,10 @@ function atualizarPontuacao() {
 }
 
 function gerarQuestao() {
-    document.getElementById("mensagem").textContent = "";
+    setTimeout(() => {
+        document.getElementById("mensagem").textContent = "";
+        gerarQuestao();
+    }, 1200);
 
     const tabuadaDisponivel = fases[faseAtual];
     const a = tabuadaDisponivel[Math.floor(Math.random() * tabuadaDisponivel.length)];
@@ -74,14 +77,15 @@ function verificarResposta(elemento, valor) {
         acertosSeguidos++;
 
         document.getElementById("mensagem").textContent =
-            "Muito bem! +10 pontos ✅"
             `${acertosSeguidos} acertos seguidos 🔋`;
 
         atualizarPontuacao();
-
         verificarAvancoDeFase();
 
-        setTimeout(gerarQuestao, 1200);
+        setTimeout(() => {
+            document.getElementById("mensagem").textContent = "";
+            gerarQuestao();
+        }, 1200);
     } else {
         elemento.classList.add("errado");
 
@@ -89,8 +93,6 @@ function verificarResposta(elemento, valor) {
 
         document.getElementById("mensagem").textContent =
             "Quase! Vamos tentar de novo 🙂";
-
-        atualizarPontuacao();
     }
 }
 
@@ -99,6 +101,8 @@ function verificarAvancoDeFase() {
     if (acertosSeguidos >= ACERTOS_PARA_AVANCAR && faseAtual < 3) {
         faseAtual++;
         acertosSeguidos = 0;
+
+        atualizarFase();
 
         document.getElementById("mensagem").textContent =
             `🎉 Nova fase liberada! Fase ${faseAtual}`;
