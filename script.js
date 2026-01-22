@@ -1,29 +1,14 @@
 let respostaCorreta = 0;
 let pontos = 0;
 
-let faseAtual = 1;
-let acertosSeguidos = 0;
-
-const fases = {
-    1: [1, 2, 5],
-    2: [3, 4, 6],
-    3: [7, 8, 9]
-};
-
-const ACERTOS_PARA_AVANCAR = 5;
-
 function atualizarPontuacao() {
     document.getElementById("pontos").textContent = pontos;
 }
 
 function gerarQuestao() {
-    setTimeout(() => {
-        document.getElementById("mensagem").textContent = "";
-        gerarQuestao();
-    }, 1200);
+    document.getElementById("mensagem").textContent = "";
 
-    const tabuadaDisponivel = fases[faseAtual];
-    const a = tabuadaDisponivel[Math.floor(Math.random() * tabuadaDisponivel.length)];
+    const a = Math.floor(Math.random() * 9) + 1;
     const b = Math.floor(Math.random() * 9) + 1;
     respostaCorreta = a * b;
 
@@ -72,48 +57,19 @@ function gerarQuestao() {
 function verificarResposta(elemento, valor) {
     if (valor === respostaCorreta) {
         elemento.classList.add("correto");
-
         pontos += 10;
-        acertosSeguidos++;
-
-        document.getElementById("mensagem").textContent =
-            `${acertosSeguidos} acertos seguidos 🔋`;
-
+        document.getElementById("mensagem").textContent = "Muito bem! +10 pontos ✅";
         atualizarPontuacao();
-        verificarAvancoDeFase();
 
-        setTimeout(() => {
-            document.getElementById("mensagem").textContent = "";
-            gerarQuestao();
-        }, 1200);
+        setTimeout(gerarQuestao, 1200);
     } else {
         elemento.classList.add("errado");
-
-        acertosSeguidos = 0;
-
-        document.getElementById("mensagem").textContent =
-            "Quase! Vamos tentar de novo 🙂";
+        pontos = Math.max(0, pontos - 5);
+        document.getElementById("mensagem").textContent = "Tente novamente −5 pontos ❌";
+        atualizarPontuacao();
     }
-}
-
-function verificarAvancoDeFase() {
-    atualizarFase();
-    if (acertosSeguidos >= ACERTOS_PARA_AVANCAR && faseAtual < 3) {
-        faseAtual++;
-        acertosSeguidos = 0;
-
-        atualizarFase();
-
-        document.getElementById("mensagem").textContent =
-            `🎉 Nova fase liberada! Fase ${faseAtual}`;
-    }
-}
-
-function atualizarFase() {
-    document.getElementById("faseAtual").textContent = faseAtual;
 }
 
 // Início do jogo
-atualizarFase();
 atualizarPontuacao();
 gerarQuestao();
